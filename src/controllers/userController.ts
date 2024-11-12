@@ -77,3 +77,43 @@ export const deleteUser = async (req: Request, res: Response) => {
         return;
     }
 }
+
+// add friend to user
+export const addFriend = async (req: Request, res: Response) => {
+  try {
+    const user = await User.findByIdAndUpdate(
+      req.params.userId,
+      { $addToSet: { friends: req.params.friendId } },
+      { new: true }
+    );
+
+    if (!user) {
+        return res.status(404).json({ message: 'No user with that ID'})
+    }
+
+    return res.json(user);
+  } catch (err) {
+    res.status(500).json(err);
+    return;
+  }
+}
+
+// delete friend to user
+export const deleteFriend = async (req: Request, res: Response) => {
+  try {
+    const user = await User.findByIdAndUpdate(
+      req.params.userId,
+      { $pull: { friends: req.params.friendId } },
+      { new: true }
+    );
+
+    if (!user) {
+        return res.status(404).json({ message: 'No user with that ID'})
+    }
+
+    return res.json(user);
+  } catch (err) {
+    res.status(500).json(err);
+    return;
+  }
+}
