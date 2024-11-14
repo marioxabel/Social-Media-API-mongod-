@@ -1,11 +1,11 @@
 import { Router } from 'express';
 const router = Router();
 import userRoutes from './userRoutes.js';
-// import postRoutes from './postRoutes.js';
+import thoughtRoutes from './thoughtRoutes.js';
 // import reactionRoutes from './reactionRoutes.js';
 
 router.use('/users', userRoutes);
-// router.use('/posts', postRoutes);
+router.use('/thoughts', thoughtRoutes);
 // router.use('/rections', reactionRoutes);
 
 export default router;
